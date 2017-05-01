@@ -214,13 +214,8 @@ def vae_loss(x, x_decoded_mean):
          x, 
          x_decoded_mean)
  
- kl_loss1 = - 0.5 * K.mean(1 + z_log_var - K.square(z_mean) - 
+ kl_loss = - 0.5 * K.mean(1 + z_log_var - K.square(z_mean) - 
             K.exp(z_log_var), axis=-1)
- kl_loss2=- 0.5 * K.mean(1 + z_log_var - 0.25*K.square(z_mean) - 
-            K.exp(z_log_var), axis=-1)
- kl_loss3=- 0.5 * K.mean(1 + z_log_var - 0.25*K.square(z_mean) - 
-            K.exp(z_log_var), axis=-1)
- kl_loss=K.log(1/(0.5*K.exp(-kl_loss1)+0.5*K.exp(-kl_loss2)))
  return xent_loss+kl_loss
 
 vae=(Model(x, x_decoded_mean_squash))
